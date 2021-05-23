@@ -4,6 +4,10 @@ const WebSocket = require('ws');
 const path = require('path');
 const EventHubReader = require('./scripts/event-hub-reader.js');
 
+
+// ENV Vars ==============================================>>>
+
+
 const iotHubConnectionString = process.env.IotHubConnectionString;
 if (!iotHubConnectionString) {
   console.error(`Environment variable IotHubConnectionString must be specified.`);
@@ -19,8 +23,12 @@ if (!eventHubConsumerGroup) {
 }
 console.log(`Using event hub consumer group [${eventHubConsumerGroup}]`);
 
+
+
+
 // Redirect requests to the public subdirectory to the root
 const app = express();
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res /* , next */) => {
   res.redirect('/');
